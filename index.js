@@ -40,6 +40,17 @@ for(const file of othercommandFiles){
 
 
 
+client.codexcommands = new Discord.Collection();
+
+const codexcommandFiles = fs.readdirSync(path.join(__dirname, `commands/codexcommands`)).filter(file => file.endsWith('.js'));
+
+for(const file of codexcommandFiles){
+    const codexcommand = require(path.join(__dirname, `commands/codexcommands/${file}`));
+
+    client.codexcommands.set(codexcommand.name, codexcommand);
+};
+
+
 
 client.once('ready', () => {
     console.log('Foxxy Bot is online!');
