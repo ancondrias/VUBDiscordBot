@@ -7,6 +7,8 @@ const prefix = '-vub ';
 const fs = require('fs');
 
 
+//
+
 //returning commands
 
 client.commands = new Discord.Collection();
