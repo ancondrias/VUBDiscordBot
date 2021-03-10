@@ -11,9 +11,6 @@ embedDice.setColor('#FF6600')
 
 // Functions
 
-const fs = require('fs');
-const lyricsFiles = fs.readdirSync(`./lyrics/`).filter(file => file.endsWith('.txt'));
-
 const dicelog = [];
 console.log(dicelog);
 
