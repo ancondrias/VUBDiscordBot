@@ -86,9 +86,14 @@ client.on('message', message => {
         //showEmbed will show the embed with the available commands, this can be anything but for readability
         //I named it this way
       }
-      else commands.execute(Discord, client, fs, message, args);
+      else {
+        const args = args.slice(1);
+        commands.execute(Discord, client, fs, message, args);
+      }
       break;
     case 'lyrics': //user now has to address the correct parent command
+      client.commands.get('codex main').execute(Discord, client, fs, message, args);
+      break;
     case 'index': //same as above
       client.commands.get('codex main').execute(Discord, client, fs, message, ['showEmbed']);
       break;

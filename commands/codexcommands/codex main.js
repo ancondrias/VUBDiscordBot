@@ -15,15 +15,14 @@ module.exports = {
       .setTitle('Codex Homescreen')
 
     // Functions
-    // A switch looks cleaner than if and else if. Note that we're switching on args[1]
-    // (used to be args[0])
-    switch (args[1]) {
+    // A switch looks cleaner than if and else if.
+    switch (args[0]) {
       case 'index':
         client.commands.get('codex index').execute(Discord, fs, message, lyricsFiles);
         break;
       case 'lyrics':
-        args = args.slice(2);//Original array = [codex, lyrics, rest of the song name...]
-        //New array after slice(2) = [rest of the song name...]
+        args = args.slice(1);//Original array = [lyrics, lied, van, geen, taal]
+        //New array after slice(2) = [lied, van, geen, taal]
         client.commands.get('codex lyrics').execute(Discord, fs, message, args, lyricsFiles);
         break;
       default: //This means no other commands were given to -vub codex
