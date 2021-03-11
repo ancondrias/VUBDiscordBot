@@ -22,7 +22,7 @@ module.exports = {
     description: "lists the commands!",
     execute(message){
       embedCommands.fields = [];
-
+      embedCommands.addField("Codex Commands", "-vub codex", true);
       for(const file of commandsList){
 
         embedCommands.addField(file.toString().replace(/.js/g, ""), "-vub " + file.toString().replace(/.js/g, ""), true)

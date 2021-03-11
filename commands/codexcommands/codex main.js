@@ -12,8 +12,9 @@ module.exports = {
     embedCodex.setColor('#FF6600')
       .setAuthor('Codex Bruxellensis', 'https://i.imgur.com/NNZm9nx.png', 'https://codex.brussels/')
       .setThumbnail('https://i.imgur.com/NNZm9nx.png')
-      .setTitle('Codex Homescreen')
+      .setTitle('Codex Commands')
 
+//<<<<<<< master
     // Functions
     // A switch looks cleaner than if and else if.
     switch (args[0]) {
@@ -23,6 +24,15 @@ module.exports = {
       case 'lyrics':
         args = args.slice(1);//Original array = [lyrics, lied, van, geen, taal]
         //New array after slice(2) = [lied, van, geen, taal]
+//=======
+// Functions
+//      if (args[0] == "index") {
+//        client.commands.get('codex index').execute(Discord, fs, message, lyricsFiles);
+//      }
+      
+//      else if (args[0] == "lyrics") {
+//        args.shift();
+//>>>>>>> master
         client.commands.get('codex lyrics').execute(Discord, fs, message, args, lyricsFiles);
         break;
       default: //This means no other commands were given to -vub codex
