@@ -62,34 +62,49 @@ client.once('ready', () => {
 
 });
 
-
-
-
 client.on('message', message =>{
   if(!message.content.startsWith(prefix) || message.author.bot) return;
 //console.log("StartLOG: check")
 
-  const args = message.content.toLowerCase().replace(prefix, "").split(' ');
-  const command = args.shift();
+  const args = message.content.toLowerCase().replace(prefix, "").trim().split(' ');
+  const command = args[0];
+  const extra   = args.length > 1;
 //  console.log(command);
 //    console.log(args);
 
-  if (command === 'twitch') {
-    client.commands.get('twitch').execute(message);
+  switch(command) {
+	  case 'twitch':
+		client.commands.get('twitch').execute(message);
+		break;
+	  case 'help':
+		client.commands.get('help').execute(message);
+		break;
+	  case 'home': 
+		client.commands.get('help').execute(message);	
+		break;
+	  case 'invite':
+		client.commands.get('invite').execute(message);
+		break;
+	  case 'embed':
+		client.othercommands.get('embed').execute(message);
+		break;
+	  case 'codex':
+		client.commands.get('codex').execute(message, args);
+		break;
+	  case 'lyrics':
+		break;
+	  case 'index':
+		break;
+	  case 'dice':
+		break;
+	  case 'higher':
+		break;
+	  case 'lower': 
+		break;
+	  default: 
+		message.channel.send("Command not found, please consult *-vub help*");
   }
 
-  else if (command === 'help' || command === 'home' || command === 'home') {
-    client.commands.get('help').execute(message);
-  } 
-    
-  else if (command === 'invite') {
-    client.commands.get('invite').execute(message);
-  } 
-    
-  else if (command === 'embed') {
-    client.othercommands.get('embed').execute(message);
-  } 
-    
   else if (command === 'codex'||command ==='lyrics'||command ==='index') {
     if (command !== 'codex') {
       args.unshift(command);
