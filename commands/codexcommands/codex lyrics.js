@@ -1,36 +1,36 @@
-// Embed
-
-const Discord = require('discord.js');
-const embedCodex = new Discord.MessageEmbed();
-
-embedCodex.setColor('#FF6600')
-.setAuthor('Codex Bruxellensis', 'https://i.imgur.com/NNZm9nx.png', 'https://codex.brussels/')
-.setThumbnail('https://i.imgur.com/NNZm9nx.png')
-//.setTitle('Codex Lyrics');
-//.setDescription('__To look up the lyrics use: __*-vub codex lyrics [songname]*');
-
-// Functions
-
-const  fs = require('fs');
-const lyricsFiles = fs.readdirSync(`./lyrics/`).filter(file => file.endsWith('.txt'));
-
-
-// module
-
+// Importing module
 module.exports = {
   name: 'codex lyrics',
   description: "this is a lyric command!",
-  execute(message, args){
-    if (!args) {
+  execute(Discord, fs, message, args, lyricsFiles){
+
+// Embeding the response 
+      const embedCodex = new Discord.MessageEmbed();
+      embedCodex.setColor('#FF6600')
+      .setAuthor('Codex Bruxellensis', 'https://i.imgur.com/NNZm9nx.png', 'https://codex.brussels/')
+      .setThumbnail('https://i.imgur.com/NNZm9nx.png')
+
+// Functions
+    if (args.length === 0) {
+
+      embedCodex.fields = []
+      embedCodex.addFields({name: "Song not found", value: "The song your were looking for does not exist \n\n To look up the the list of songs use the command: *-vub codex index*", inline: true});
+
+      message.channel.send(embedCodex);
+
       message.channel.send("Please mention a song: codex lyrics [songname]")
       message.channel.send('\n\n To look up the the list of songs use the command: codex listnew');
     }
 
     else if (args) {
 
+      console.log("\nSong Search Arguments: " + args);
+      
       for(const file of lyricsFiles){
 //        console.log(file)
         const songargs = file.toLowerCase().replace(/.txt/g, "").split(' ');
+
+        console.log("\nSong arguments. " + songargs);
 
 //        console.log(songargs);
         if (args.every(arg => songargs.includes(arg))) {
