@@ -12,11 +12,11 @@ module.exports = {
       embedCodex.setColor('#FF6600')
       .setAuthor('Codex Bruxellensis', 'https://i.imgur.com/NNZm9nx.png', 'https://codex.brussels/')
       .setThumbnail('https://i.imgur.com/NNZm9nx.png')
-      .setTitle('Codex Homescreen')
+      .setTitle('Codex Commands')
 
 // Functions
       if (args[0] == "index") {
-        client.commands.get('codex index').execute(Discord, fs, lyricsFiles);
+        client.commands.get('codex index').execute(Discord, fs, message, lyricsFiles);
       }
       
       else if (args[0] == "lyrics") {

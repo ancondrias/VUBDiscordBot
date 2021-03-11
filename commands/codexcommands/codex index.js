@@ -2,7 +2,7 @@
 module.exports = {
     name: 'codex index',
     description: "index of codex songs!",
-    execute(Discord, fs, lyricsFiles){
+    execute(Discord, fs, message, lyricsFiles){
 
 // Embeding the response
       const embedCodexIndex = new Discord.MessageEmbed();
