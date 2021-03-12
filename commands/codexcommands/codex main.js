@@ -31,7 +31,7 @@ module.exports = {
       default: //This means no other commands were given to -vub codex
         embedCodex.addField(prefix + `codex index`, 'Find a list of songs that have been fed into this bot', true);
         embedCodex.addField(prefix + `codex lyrics [search words]`, 'Find the lyrics of the desired song by entering tag words.', true);
-        embedCodex.addField(prefix + `codex random`, '(not working yet) Get the lyrics of a random song.', true);
+        embedCodex.addField(prefix + `codex random`, 'Get the lyrics of a random song.', true);
         embedCodex.addField(prefix + 'home','To get an overiew of all the commands of the bot.', true)
         message.channel.send(embedCodex);
     }
