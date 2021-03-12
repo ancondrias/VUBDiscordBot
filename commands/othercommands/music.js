@@ -1,11 +1,14 @@
-const queue = new Map();
-const ytdl = require("ytdl-core");
-
-
+// Importing module
 module.exports = {
+
   name: 'music',
   description: "plays the music bot",
   execute(message, command, args){
+
+
+    // Functions
+    const queue = new Map();
+    const ytdl = require("ytdl-core");
 
     console.log("music bot ready")
 

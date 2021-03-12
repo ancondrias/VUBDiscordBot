@@ -1,25 +1,28 @@
 // Importing module
 module.exports = {
+
   name: 'codex lyrics',
   description: "this is a lyric command!",
   execute(Discord, fs, message, args, lyricsFiles){
 
-// Embeding the response 
-      const embedCodex = new Discord.MessageEmbed();
-      embedCodex.setColor('#FF6600')
-      .setAuthor('Codex Bruxellensis', 'https://i.imgur.com/NNZm9nx.png', 'https://codex.brussels/')
-      .setThumbnail('https://i.imgur.com/NNZm9nx.png')
 
-// Functions
+    // Embeding the response 
+    const embedCodex = new Discord.MessageEmbed();
+    embedCodex.setColor('#FF6600')
+    .setAuthor('Codex Bruxellensis', 'https://i.imgur.com/NNZm9nx.png', 'https://codex.brussels/')
+    .setThumbnail('https://i.imgur.com/NNZm9nx.png')
+
+
+    // Functions
     if (args.length === 0) {
 
       embedCodex.fields = []
-      embedCodex.addFields({name: "Song not found", value: "The song your were looking for does not exist \n\n To look up the the list of songs use the command: *-vub codex index*", inline: true});
+      embedCodex.addFields({name: "No keywords given", value: "Please mention keywords for the song you look for: *-vub lyrics [keywords]* \n To look up the the list of songs use the command: *-vub index*", inline: true});
 
       message.channel.send(embedCodex);
 
-      message.channel.send("Please mention a song: codex lyrics [songname]")
-      message.channel.send('\n\n To look up the the list of songs use the command: codex listnew');
+//      message.channel.send("Please mention a song: codex lyrics [songname]")
+//      message.channel.send('\n\n To look up the the list of songs use the command: codex listnew');
     }
 
     else if (args) {
@@ -70,7 +73,7 @@ module.exports = {
 
     if (checkList === false) {
       embedCodex.fields = []
-      embedCodex.addFields({name: "Song not found", value: "The song your were looking for does not exist \n\n To look up the the list of songs use the command: *-vub codex index*", inline: true});
+      embedCodex.addFields({name: "Song not found", value: "The song your were looking for does not exist \n To look up the the list of songs use the command: *-vub index*", inline: true});
 
       message.channel.send(embedCodex);
     }

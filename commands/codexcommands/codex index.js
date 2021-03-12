@@ -14,6 +14,7 @@ module.exports = {
       .setTitle('Index of songs')
       .setDescription('__To look up the lyrics use: __*-vub codex lyrics [songname]*');
 
+
     // Functions
     for (const lyricsFile of lyricsFiles) {
       embedCodexIndex.addField(lyricsFile.toString().replace(/.txt/g, ""), "\u200b", true)

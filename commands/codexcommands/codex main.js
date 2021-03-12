@@ -1,11 +1,10 @@
 // Importing module
 module.exports = {
-  name: 'codex main',
-  description: "lists the codex commands!",
-  execute(Discord, client, fs, message, args) {
 
-    // Reading file system
-    const lyricsFiles = fs.readdirSync(`./lyrics/`).filter(file => file.endsWith('.txt'));
+  name: 'codex',
+  description: "lists the codex commands!",
+  execute(Discord, client, fs, prefix, message, args) {
+
 
     // Embeding the response
     const embedCodex = new Discord.MessageEmbed();
@@ -14,32 +13,26 @@ module.exports = {
       .setThumbnail('https://i.imgur.com/NNZm9nx.png')
       .setTitle('Codex Commands')
 
-//<<<<<<< master
+
     // Functions
-    // A switch looks cleaner than if and else if.
+    const lyricsFiles = fs.readdirSync(`./lyrics/`).filter(file => file.endsWith('.txt'));
+
     switch (args[0]) {
       case 'index':
         client.commands.get('codex index').execute(Discord, fs, message, lyricsFiles);
         break;
+      case 'random':
+        client.commands.get('codex random').execute(Discord, fs, message, args, lyricsFiles);
+        break;
       case 'lyrics':
-        args = args.slice(1);//Original array = [lyrics, lied, van, geen, taal]
-        //New array after slice(2) = [lied, van, geen, taal]
-//=======
-// Functions
-//      if (args[0] == "index") {
-//        client.commands.get('codex index').execute(Discord, fs, message, lyricsFiles);
-//      }
-      
-//      else if (args[0] == "lyrics") {
-//        args.shift();
-//>>>>>>> master
+        args.shift();
         client.commands.get('codex lyrics').execute(Discord, fs, message, args, lyricsFiles);
         break;
       default: //This means no other commands were given to -vub codex
-        embedCodex.fields = [];
-        embedCodex.addFields({ name: '-vub codex index', value: 'Find a list of songs that have been fed into this bot' })
-        embedCodex.addFields({ name: '-vub codex lyrics [search words]', value: 'Find the lyrics of the desired song by entering tag words.' })
-        embedCodex.addFields({ name: '-vub codex help', value: 'To get an overiew of all the commands of the bot.' })
+        embedCodex.addField(prefix + `codex index`, 'Find a list of songs that have been fed into this bot', true);
+        embedCodex.addField(prefix + `codex lyrics [search words]`, 'Find the lyrics of the desired song by entering tag words.', true);
+        embedCodex.addField(prefix + `codex random`, '(not working yet) Get the lyrics of a random song.', true);
+        embedCodex.addField(prefix + 'home','To get an overiew of all the commands of the bot.', true)
         message.channel.send(embedCodex);
     }
   }
