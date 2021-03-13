@@ -7,7 +7,7 @@ const client = new Discord.Client();
 
 
 // Defining the prefix of the VUB Discord Bot
-const prefix = '-';
+let prefixes = { 'default': '-' };
 
 
 // Defining file system
@@ -38,10 +38,22 @@ for (const file of othercommandFolder) {
 client.commands.sort();
 client.commands.sort();
 
+// Read prefixfiles and add them to the dictionary
+function refreshPrefixes() {
+  const prefixFiles = fs.readdirSync(`./prefixes/`).filter(file => file.endsWith('.txt'));
+  for (file of prefixFiles) {
+    const serverName = file.replace('prefix', '').replace(/.txt/g, '');
+    const emoji = fs.readFileSync(`./prefixes/${file}`, 'utf8');
+    prefixes[serverName] = emoji;
+  }
+}
 
 // Once VUB Bot is ready, it sets activity and logs in console that it is ready.
 client.once('ready', () => {
+  refreshPrefixes();
   console.log('Foxxy Bot is online!');
+  let clientguilds = client.guilds.cache;
+  console.log(clientguilds.map(g => g.name) || "None")
 
   client.user.setActivity('Cantusseeeen', {
     type: 'PLAYING'
@@ -51,6 +63,11 @@ client.once('ready', () => {
 });
 
 client.on('message', message => {
+  let prefix = prefixes[message.guild.name];
+  if (!prefix) {
+    prefix = prefixes['default'];
+  }
+
   //Checks if the message starts with prefix and isn't written by the bot.
   if (!message.content.startsWith(prefix) || message.author.bot) return;
 
@@ -77,6 +94,13 @@ client.on('message', message => {
       break;
     case 'twitch':
       client.commands.get('twitch').execute(message);
+      break;
+    case 'prefix':
+      const guildName = message.guild.name;
+      console.log('Setting emoji ' + args[1] + ' for ' + guildName);
+      fs.writeFile('./prefixes/prefix' + guildName + '.txt', args[1], (err) => 0);
+      refreshPrefixes();
+      message.channel.send('Prefix updated to: ' + args[1]);
       break;
 
     //codex commands
@@ -131,4 +155,4 @@ client.on('message', message => {
 
 })
 
-client.login(process.env.DISCORD_TOKEN);
+client.login('ODE5OTg5MDIxNTUxNzU1MzI0.YEuoSQ.A1OieQQTSaOSgGaqQxFRDZ08Yv4');
