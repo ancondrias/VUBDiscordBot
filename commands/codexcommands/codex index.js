@@ -33,22 +33,28 @@ module.exports = {
     // Functions
     function switchPage(index, embedSent, collector) {
       // Returns a closure that knows the given index so it can be applied on collect
-      function actualSwitch(reaction) {
+      function actualSwitch(reaction, user) {
         const previous = reaction.emoji.name === previousEmoji;
+        reaction.users.remove(user);
         if (previous) {
-          if (cachedEmbeds.length != 0)
-            embedCodexIndex = cachedEmbeds.pop();
+          if (cachedEmbeds.length != 0) {
+            cache = cachedEmbeds.pop();
+            index = cache[1];
+            embedCodexIndex = cache[0];
+          }
           else
             return;
         }
         else {
           if (index != lyricsFiles.length) {
             // Add to front
-            cachedEmbeds.push(embedCodexIndex);
+            cachedEmbeds.push([embedCodexIndex, index]);
           }
           else {
-            index = 0;
-            cachedEmbeds = [];
+            console.log('Last page reached');
+            //index = 0;
+            //cachedEmbeds = [];
+            return;
           }
           // Refresh the embed (clearing it)
           embedCodexIndex = createEmbedCodex();
@@ -76,7 +82,7 @@ module.exports = {
 
     function createReactionListener(index, embedSent) {
       const filter = (reaction, _) => reaction.emoji.name === nextEmoji || reaction.emoji.name === previousEmoji;
-      const collector = embedSent.createReactionCollector(filter, { time: 60000, dispose: true });
+      const collector = embedSent.createReactionCollector(filter, { idle: 10000, dispose: true });
       collector.on('collect', switchPage(index, embedSent, collector));
       collector.on('end', _ => removeCache(embedSent));
     }
