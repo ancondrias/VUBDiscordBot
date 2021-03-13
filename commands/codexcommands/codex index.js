@@ -9,7 +9,7 @@ module.exports = {
 
   name: 'codex index',
   description: "index of codex songs!",
-  execute(Discord, fs, message, lyricsFiles) {
+  execute(Discord, message, prefix, lyricsFiles) {
 
     //Generic embed creator function
     function createEmbedCodex() {
@@ -18,7 +18,7 @@ module.exports = {
         .setAuthor('Codex Bruxellensis', 'https://i.imgur.com/NNZm9nx.png', 'https://codex.brussels/')
         .setThumbnail('https://i.imgur.com/NNZm9nx.png', 'https://codex.brussels/')
         .setTitle('Index of songs')
-        .setDescription('__To look up the lyrics use: __*-vub codex lyrics [songname]*');
+        .setDescription('__To look up the lyrics use: __*' + prefix + ' codex lyrics [songname]*');
       return embedCodexIndex;
     }
 
