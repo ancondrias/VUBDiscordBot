@@ -18,8 +18,11 @@ module.exports = {
     const lyricsFiles = fs.readdirSync(`./lyrics/`).filter(file => file.endsWith('.txt'));
 
     switch (args[0]) {
+      case 'prosit':
+        client.commands.get('codex prosit').execute(Discord, message);
+        break;
       case 'index':
-        client.commands.get('codex index').execute(Discord, fs, message, lyricsFiles);
+        client.commands.get('codex index').execute(Discord, message, prefix, lyricsFiles);
         break;
       case 'random':
         client.commands.get('codex random').execute(Discord, fs, message, args, lyricsFiles);
@@ -32,7 +35,8 @@ module.exports = {
         embedCodex.addField(prefix + `codex index`, 'Find a list of songs that have been fed into this bot', true);
         embedCodex.addField(prefix + `codex lyrics [search words]`, 'Find the lyrics of the desired song by entering tag words.', true);
         embedCodex.addField(prefix + `codex random`, 'Get the lyrics of a random song.', true);
-        embedCodex.addField(prefix + 'home','To get an overiew of all the commands of the bot.', true)
+        embedCodex.addField(prefix + 'home', 'To get an overiew of all the commands of the bot.', true);
+        embedCodex.addField(prefix + 'codex prosit', 'To get a random amount to drink', true);
         message.channel.send(embedCodex);
     }
   }
