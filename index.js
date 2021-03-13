@@ -78,19 +78,16 @@ client.on('message', message => {
     case 'twitch':
       client.commands.get('twitch').execute(message);
       break;
-  
+
     //codex commands
     case 'codex':
       args.shift();
       client.commands.get('codex').execute(Discord, client, fs, prefix, message, args);
       break;
     case 'lyrics':
-      client.commands.get('codex').execute(Discord, client, fs, prefix, message, args);
-      break;
     case 'random':
-      client.commands.get('codex').execute(Discord, client, fs, prefix, message, args);
-      break;
     case 'index':
+    case 'prosit':
       client.commands.get('codex').execute(Discord, client, fs, prefix, message, args);
       break;
 
@@ -101,17 +98,9 @@ client.on('message', message => {
       client.commands.get('dice').execute(Discord, message, args);
       break;
     case 'throw':
-      client.commands.get('dice').execute(Discord, message, args);
-      break;
     case 'higher':
-      client.commands.get('dice').execute(Discord, message, args);
-      break;
     case 'lower':
-      client.commands.get('dice').execute(Discord, message, args);
-      break;
     case 'hoger':
-      client.commands.get('dice').execute(Discord, message, args);
-      break;
     case 'lager':
       client.commands.get('dice').execute(Discord, message, args);
       break;

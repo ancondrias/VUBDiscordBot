@@ -18,6 +18,9 @@ module.exports = {
     const lyricsFiles = fs.readdirSync(`./lyrics/`).filter(file => file.endsWith('.txt'));
 
     switch (args[0]) {
+      case 'prosit':
+        client.commands.get('codex prosit').execute(Discord, message);
+        break;
       case 'index':
         client.commands.get('codex index').execute(Discord, message, prefix, lyricsFiles);
         break;
