@@ -155,4 +155,4 @@ client.on('message', message => {
 
 })
 
-client.login('ODE5OTg5MDIxNTUxNzU1MzI0.YEuoSQ.A1OieQQTSaOSgGaqQxFRDZ08Yv4');
+client.login(TOKEN);
