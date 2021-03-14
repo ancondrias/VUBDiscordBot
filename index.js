@@ -40,12 +40,13 @@ client.commands.sort();
 
 // Read prefixfiles and add them to the dictionary
 function refreshPrefixes() {
-  const prefixFiles = fs.readdirSync(`./prefixes/`).filter(file => file.endsWith('.txt'));
+  let prefixFiles = fs.readdirSync(`./prefixes/`).filter(file => file.endsWith('.txt'));
   for (file of prefixFiles) {
     const serverName = file.replace('prefix', '').replace(/.txt/g, '');
     const emoji = fs.readFileSync(`./prefixes/${file}`, 'utf8');
     prefixes[serverName] = emoji;
   }
+  console.log(prefixes);
 }
 
 // Once VUB Bot is ready, it sets activity and logs in console that it is ready.
@@ -96,6 +97,8 @@ client.on('message', message => {
       client.commands.get('twitch').execute(message);
       break;
     case 'prefix':
+      if (!message.member.permissions.has(0x00000008))
+        message.channel.send('You are not allowed to change my prefix');
       const guildName = message.guild.name;
       console.log('Setting emoji ' + args[1] + ' for ' + guildName);
       fs.writeFile('./prefixes/prefix' + guildName + '.txt', args[1], (err) => 0);
@@ -155,4 +158,4 @@ client.on('message', message => {
 
 })
 
-client.login('ODE5OTg5MDIxNTUxNzU1MzI0.YEuoSQ.A1OieQQTSaOSgGaqQxFRDZ08Yv4');
+client.login(proess.env.DISCORD_TOKEN);
