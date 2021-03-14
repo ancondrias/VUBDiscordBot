@@ -97,13 +97,16 @@ client.on('message', message => {
       client.commands.get('twitch').execute(message);
       break;
     case 'prefix':
-      if (!message.member.permissions.has(0x00000008))
+      if (!message.member.permissions.has(0x00000008)) { // Only admin allowed
         message.channel.send('You are not allowed to change my prefix');
-      const guildName = message.guild.name;
-      console.log('Setting emoji ' + args[1] + ' for ' + guildName);
-      fs.writeFile('./prefixes/prefix' + guildName + '.txt', args[1], (err) => 0);
-      refreshPrefixes();
-      message.channel.send('Prefix updated to: ' + args[1]);
+      }
+      else {
+        const guildName = message.guild.name;
+        console.log('Setting emoji ' + args[1] + ' for ' + guildName);
+        fs.writeFile('./prefixes/prefix' + guildName + '.txt', args[1], (err) => 0);
+        refreshPrefixes();
+        message.channel.send('Prefix updated to: ' + args[1]);
+      }
       break;
 
     //codex commands
