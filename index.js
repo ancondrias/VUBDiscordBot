@@ -104,7 +104,7 @@ client.on('message', message => {
         const guildName = message.guild.name;
         console.log('Setting emoji ' + args[1] + ' for ' + guildName);
         fs.writeFile('./prefixes/prefix' + guildName + '.txt', args[1], (err) => 0);
-        refreshPrefixes();
+        prefixes[guildName] = args[1];
         message.channel.send('Prefix updated to: ' + args[1]);
       }
       break;
